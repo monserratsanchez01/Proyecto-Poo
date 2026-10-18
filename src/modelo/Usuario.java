@@ -6,17 +6,17 @@ public class Usuario {
     private String correo;
     private String contrasena;
     private Cuenta cuenta;
-    private Tarjeta tarjeta;
 
-    public Usuario(String idUsuario, String nombre, String correo, String contrasena, Cuenta cuenta, Tarjeta tarjeta) {
+    // Constructor
+    public Usuario(String idUsuario, String nombre, String correo, String contrasena, Cuenta cuenta) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.correo = correo;
         this.contrasena = contrasena;
         this.cuenta = cuenta;
-        this.tarjeta = tarjeta;
     }
 
+    // Metodo para validar inicio de sesion
     public boolean iniciarSesion(String passIngresada) {
         if (this.contrasena.equals(passIngresada)) {
             System.out.println("Inicio de sesion correcto. Bienvenido " + this.nombre);
@@ -33,9 +33,6 @@ public class Usuario {
         System.out.println("Correo: " + correo);
         if (cuenta != null) {
             System.out.println("Cuenta vinculada: " + cuenta.getNumCuenta());
-        }
-        if (tarjeta != null) {
-            System.out.println("Numero de tarjeta: " + tarjeta.getNumero());
         }
         System.out.println("-------------------------");
     }
@@ -79,13 +76,5 @@ public class Usuario {
 
     public void setCuenta(Cuenta cuenta) {
         this.cuenta = cuenta;
-    }
-
-    public Tarjeta getTarjeta() {
-        return tarjeta;
-    }
-
-    public void setTarjeta(Tarjeta tarjeta) {
-        this.tarjeta = tarjeta;
     }
 }
