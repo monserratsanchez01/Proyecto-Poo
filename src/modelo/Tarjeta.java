@@ -3,14 +3,14 @@ import java.time.YearMonth;
 
 public class Tarjeta {
     // Atributos
-    private string numeroTarjeta;
+    private String numeroTarjeta;
     private YearMonth fechaExpiracion;
-    private string cvv;
-    private string nip;
+    private String cvv;
+    private String nip;
     private boolean activa;
 
     // Constructores
-    public Tarjeta(string numeroTarjeta, YearMonth fechaExpiracion, string cvv, string nip, boolean activa){
+    public Tarjeta(String numeroTarjeta, YearMonth fechaExpiracion, String cvv, String nip, boolean activa){
         this.numeroTarjeta = numeroTarjeta;
         this.cvv = cvv;
         this.nip = nip;
