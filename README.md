@@ -13,13 +13,14 @@ Grupo: 04
 ---
 
 ## Descripcion del proyecto
-Opus Proventus es una aplicacion bancaria orientada a objetos en Java que permite a los usuarios gestionar su cuenta, consultar saldos y realizar operaciones de manera segura.
+Opus Proventus es una aplicacion bancaria orientada a objetos en Java que permite a los usuarios gestionar su cuenta financiera, consultar saldos y realizar transferencias con comprobante y administrar compras.
 
 ## Estructura de paquetes
-El codigo esta organizado en paquetes dentro de `src/`:
+El codigo esta organizado en tres paquetes dentro de `src/`:
 
-* `modelo`: Contiene las clases de la entidad (`Cuenta.java`, `Usuario.java`,`Tarjeta.java`).
+* `modelo`: Contiene las clases de datos y entidades del sistema (`Cuenta.java`, `Usuario.java`,`Tarjeta.java`).
 * `app`: Contiene la clase ejecutable (`Main.java`).
+* `servicio`: Contiene la lógica y operaciones bancarias (`ServicioBancario.java`).
 
 ## Como compilar y ejecutar
 

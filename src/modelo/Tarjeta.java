@@ -28,7 +28,7 @@ public class Tarjeta {
     }
 
     public String getFechaExpiracion() {
-        return fechaExpiracion;
+        return fechaExpiracion.toString();
     }
 
     public String getNip() {
