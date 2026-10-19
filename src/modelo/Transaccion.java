@@ -29,7 +29,7 @@ public class Transaccion{
     }
 
     public Cuenta getCuentaDestino(){
-        return getCuentaDestino;
+        return cuentaDestino;
     }
 
     public int getIdTransaccion(){
