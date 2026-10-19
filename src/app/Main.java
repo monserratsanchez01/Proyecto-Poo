@@ -33,7 +33,8 @@ public class Main {
         banco.transferir(cuentaAlyson, cuentaYoltzin, 1200.0);
         System.out.println("\nSaldos posteriores a la transferencia:");
         cuentaAlyson.consultarSaldo();
-
+        cuentaYoltzin.consultarSaldo();
+        
         // Funconalidad 2: Operaciones con tarjeta de debito
         System.out.println("\n--- 3. Funcionaildad 2: Pago con tarjeta y seguridad ---");
         // Caso A: Pago con tarjeta activa
