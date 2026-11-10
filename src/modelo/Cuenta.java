@@ -1,5 +1,7 @@
 package modelo;
 
+import excepciones.SaldoInsuficienteException;
+
 public class Cuenta {
     private int numCuenta;
     private String titular;
@@ -18,29 +20,30 @@ public class Cuenta {
     }
 
     // Metodo para depositar dinero
-    public boolean depositar(double dinero) {
+    public void  depositar(double dinero) {
         if (dinero <= 0) {
-            System.out.println("El monto a depositar debe ser mayor a 0");
-            return false;
+            throw new IllegalArgumentException("El monto a depositar debe ser mayor que cero.");
         }
         this.saldo += dinero;
-        System.out.println("Deposito exitoso de: $" + dinero + ". Saldo actual: $" + this.saldo);
-        return true;
     }
 
     // Metodo para retirar dinero
-    public boolean retirar(double dinero) {
+    public void retirar(double dinero) throws SaldoInsuficienteException {
+        // Validar
         if (dinero <= 0) {
-            System.out.println("El monto a retirar debe ser mayor a 0");
-            return false;
+            throw new IllegalArgumentException("El monto a retirar debe ser mayor que cero.");
         }
+        
+        // Validar situación del dominio
         if (dinero > this.saldo) {
-            System.out.println("Saldo insuficiente en la cuenta");
-            return false;
+            // Se rechaza la operación y el saldo se conserva intacto
+            throw new SaldoInsuficienteException(
+                "Saldo insuficiente para retirar. Saldo actual: $" + this.saldo
+            );
         }
+        
+        // Se descuenta el dinero
         this.saldo -= dinero;
-        System.out.println("Retiro exitoso de: $" + dinero + ". Saldo restante: $" + this.saldo);
-        return true;
     }
 
     // Metodo para consultar saldo

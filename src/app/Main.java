@@ -1,56 +1,92 @@
 package app;
 
-import modelo.Cuenta;
-import modelo.Usuario;
-import modelo.Tarjeta;
+import modelo.*;
 import servicio.ServicioBancario;
+import excepciones.SaldoInsuficienteException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("=== SISTEMA BANCARIO OPUS PROVENTUS ===");
-
+        Scanner scanner = new Scanner(System.in);
         ServicioBancario banco = new ServicioBancario();
-        // Creacion de cuentas de prueba
+        
+        // Datos de prueba
         Cuenta cuentaAlyson = new Cuenta(1001, "Alyson Cortes", 5000.0);
         Cuenta cuentaYoltzin = new Cuenta(1002, "Yoltzin Gonzalez", 1500.0);
-
-        // Creacion del usuario y tarjeta vinculada
         Usuario usuarioAlyson = new Usuario("user01", "Alyson Cortes", "alyson@gmail.com", "12345", cuentaAlyson);
         Tarjeta tarjetaAlyson = new Tarjeta("4152313389012345", "12/28", "789", "1234", true);
 
-        // Prueba de autenticación
-        System.out.println("\n--- 1. Auntenticación del cliente ---");
-        usuarioAlyson.iniciarSesion("12345");
-        usuarioAlyson.mostrarPerfil();
-
-        //Funcionalidad 1: Operación de tranferencia bancaria y el comprobante
-        System.out.println("\n--- 2. Funcionaildad 1: Transferencia entre cuentas ---");
-        System.out.println("Saldos iniciales:");
-        cuentaAlyson.consultarSaldo();
-        cuentaYoltzin.consultarSaldo();
-
-        // Tranferencia de $1200 de Alyson a Yoltzin
-        banco.transferir(cuentaAlyson, cuentaYoltzin, 1200.0);
-        System.out.println("\nSaldos posteriores a la transferencia:");
-        cuentaAlyson.consultarSaldo();
-        cuentaYoltzin.consultarSaldo();
+        System.out.println("=== SISTEMA BANCARIO OPUS PROVENTUS ===");
         
-        // Funconalidad 2: Operaciones con tarjeta de debito
-        System.out.println("\n--- 3. Funcionaildad 2: Pago con tarjeta y seguridad ---");
-        // Caso A: Pago con tarjeta activa
-        System.out.println("\n[Caso A: Intento de pago normal]");
-        tarjetaAlyson.pagar(450.0);
-        // Caso B: Bloqueo preventivo de la taarjeta y rechazo
-        System.out.println("\n[Caso B: Bloqueo preventivo de la tarjeta]");
-        tarjetaAlyson.bloquear();
-        tarjetaAlyson.pagar(200.0); // Se rechaza porque esta bloqueada
+        boolean salir = false;
+        while (!salir) {
+            System.out.println("\n--- MENÚ PRINCIPAL ---");
+            System.out.println("1. Ver perfil y saldo (Alyson)");
+            System.out.println("2. Transferir a Yoltzin");
+            System.out.println("3. Simular cobro con tarjeta");
+            System.out.println("4. Ver historial de transferencias");
+            System.out.println("5. Salir");
+            System.out.print("Seleccione una opción: ");
+            
+            try {
+                // Capturamos como String y convertimos a int
+                int opcion = Integer.parseInt(scanner.nextLine());
+                
+                switch (opcion) {
+                    case 1:
+                        usuarioAlyson.mostrarPerfil();
+                        cuentaAlyson.consultarSaldo();
+                        break;
+                        
+                    case 2:
+                        System.out.print("Ingrese el monto a transferir a Yoltzin: ");
+                        // Si el usuario escribe letras, lanza NumberFormatException[cite: 3, 4]
+                        double montoTransferencia = Double.parseDouble(scanner.nextLine()); 
+                        
+                        // El método transferir ahora lanza excepciones, así que lo atrapamos abajo
+                        banco.transferir(cuentaAlyson, cuentaYoltzin, montoTransferencia); 
+                        break;
+                        
+                    case 3:
+                        System.out.print("Ingrese el monto a pagar con tarjeta: ");
+                        double montoPago = Double.parseDouble(scanner.nextLine());
+                        tarjetaAlyson.pagar(montoPago);
+                        break;
+                        
+                    case 4:
+                        banco.mostrarHistorial();
+                        break;
+                        
+                    case 5:
+                        salir = true;
+                        System.out.println("Gracias por usar OPUS PROVENTUS. ¡Hasta luego!");
+                        break;
+                        
+                    default:
+                        System.out.println("Opción no válida. Ingrese un número del 1 al 5.");
+                }
+                
+            } catch (NumberFormatException e) {
+                // Atiende entrada con formato incorrecto
+                System.out.println("\n[ERROR DE FORMATO]: Por favor, ingrese únicamente números válidos.");
+                
+            } catch (IllegalArgumentException e) {
+                // Captura reglas de negocio rotas (Ej: monto negativo)
+                System.out.println("\n[ERROR DE VALIDACIÓN]: " + e.getMessage());
+                
+            } catch (SaldoInsuficienteException e) {
+                System.out.println("\n[OPERACIÓN RECHAZADA - EXCEPCIÓN PROPIA]: " + e.getMessage());
+                System.out.println(">> El saldo de su cuenta se ha conservado intacto.");
+                
+            } catch (Exception e) {
+                // Captura cualquier otro error genérico no previsto
+                System.out.println("\n[ERROR INESPERADO]: Ha ocurrido un problema en el sistema.");
+                
+            } finally {
+                System.out.println("--- [Procesamiento de solicitud finalizado] ---");
+            }
+        }
         
-        // Desbloqueo de tarjeta
-        tarjetaAlyson.desbloquear();
-
-
-        // Historial
-        banco.mostrarHistorial();
-        System.out.println("\n[FIN DE LA DEMOSTRACIÓN]");
+        scanner.close();
     }
 }

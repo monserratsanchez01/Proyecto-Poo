@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import modelo.Cuenta;
 import modelo.Transaccion;
+import excepciones.SaldoInsuficienteException;
 
 public class ServicioBancario {
 
@@ -15,57 +16,40 @@ public class ServicioBancario {
         siguienteId = 1;
     }
 
-    public boolean transferir(Cuenta origen, Cuenta destino, double monto) {
-
+    public void transferir(Cuenta origen, Cuenta destino, double monto)
+            throws IllegalArgumentException, SaldoInsuficienteException {
+        
         if (origen == null || destino == null) {
-            System.out.println("Error: las cuentas deben existir.");
-            return false;
+            throw new IllegalArgumentException("Las cuentas deben existir.");
         }
 
-        if (origen == destino) {
-            System.out.println("Error: no puedes transferir a la misma cuenta.");
-            return false;
+        if (origen.equals(destino)) {
+            throw new IllegalArgumentException("No puedes transferir a la misma cuenta.");
         }
 
         if (monto <= 0) {
-            System.out.println("Error: el monto debe ser mayor que cero.");
-            return false;
+            throw new IllegalArgumentException("El monto a transferir debe ser mayor que cero.");
         }
 
+        // Validación de saldo lanzando la excepción
         if (origen.getSaldo() < monto) {
-            System.out.println("Error: saldo insuficiente.");
-            return false;
+            throw new SaldoInsuficienteException(
+                "Transferencia fallida. Saldo insuficiente en la cuenta de origen. Saldo actual: $" + origen.getSaldo()
+            );
         }
 
-        boolean retiroExitoso = origen.retirar(monto);
+        // Modificación de datos solo si las validaciones pasaron
 
-        if (!retiroExitoso) {
-            return false;
-        }
+        origen.retirar(monto); 
+        destino.depositar(monto);
 
-        boolean depositoExitoso = destino.depositar(monto);
-
-        if (!depositoExitoso) {
-            origen.depositar(monto);
-            System.out.println("Error: no se pudo completar la transferencia.");
-            return false;
-        }
-
-        Transaccion transaccion = new Transaccion(
-            siguienteId,
-            "Transferencia",
-            monto,
-            origen,
-            destino
-        );
-
+        // Registro de la transacción
+        Transaccion transaccion = new Transaccion(siguienteId, "Transferencia", monto, origen, destino);
         historial.add(transaccion);
         siguienteId++;
-
+        
         System.out.println("¡Transferencia realizada exitosamente!");
         System.out.println(transaccion.generarComprobante());
-
-        return true;
     }
 
     public void mostrarHistorial() {
