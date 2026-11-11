@@ -1,5 +1,4 @@
 package modelo;
-import java.time.YearMonth; 
 
 public class Tarjeta {
     // Atributos
