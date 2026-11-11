@@ -20,13 +20,13 @@ public class Main {
         
         boolean salir = false;
         while (!salir) {
-            System.out.println("\n--- MENÚ PRINCIPAL ---");
+            System.out.println("\n--- MENU PRINCIPAL ---");
             System.out.println("1. Ver perfil y saldo (Alyson)");
             System.out.println("2. Transferir a Yoltzin");
             System.out.println("3. Simular cobro con tarjeta");
             System.out.println("4. Ver historial de transferencias");
             System.out.println("5. Salir");
-            System.out.print("Seleccione una opción: ");
+            System.out.print("Seleccione una opcion: ");
             
             try {
                 // Capturamos como String y convertimos a int
@@ -63,19 +63,19 @@ public class Main {
                         break;
                         
                     default:
-                        System.out.println("Opción no válida. Ingrese un número del 1 al 5.");
+                        System.out.println("Opción no valida. Ingrese un número del 1 al 5.");
                 }
                 
             } catch (NumberFormatException e) {
                 // Atiende entrada con formato incorrecto
-                System.out.println("\n[ERROR DE FORMATO]: Por favor, ingrese únicamente números válidos.");
+                System.out.println("\n[ERROR DE FORMATO]: Por favor, ingrese unicamente numeros validos.");
                 
             } catch (IllegalArgumentException e) {
                 // Captura reglas de negocio rotas (Ej: monto negativo)
-                System.out.println("\n[ERROR DE VALIDACIÓN]: " + e.getMessage());
+                System.out.println("\n[ERROR DE VALIDACION]: " + e.getMessage());
                 
             } catch (SaldoInsuficienteException e) {
-                System.out.println("\n[OPERACIÓN RECHAZADA - EXCEPCIÓN PROPIA]: " + e.getMessage());
+                System.out.println("\n[OPERACION RECHAZADA - EXCEPCION PROPIA]: " + e.getMessage());
                 System.out.println(">> El saldo de su cuenta se ha conservado intacto.");
                 
             } catch (Exception e) {
