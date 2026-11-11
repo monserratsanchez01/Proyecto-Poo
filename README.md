@@ -27,7 +27,7 @@ El codigo esta organizado en tres paquetes dentro de `src/`:
 ### Compilacion:
 Desde la terminal en la carpeta principal del proyecto ejecutar:
 ```bash
-javac -d bin src/modelo/*.java src/servicio/*.java src/app/*.java
+javac -d bin src/excepciones/*.java src/modelo/*.java src/servicio/*.java src/app/*.java
 ```
 
 ### Ejecucion:
