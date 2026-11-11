@@ -11,8 +11,8 @@ public class Main {
         ServicioBancario banco = new ServicioBancario();
         
         // Datos de prueba
-        Cuenta cuentaAlyson = new Cuenta(1001, "Alyson Cortes", 5000.0);
-        Cuenta cuentaYoltzin = new Cuenta(1002, "Yoltzin Gonzalez", 1500.0);
+        CuentaBase cuentaAlyson = new CuentaAhorro(1001, "Alyson Cortes", 5000.0, 0.02);
+        CuentaBase cuentaYoltzin = new CuentaInversion(1002, "Yoltzin Gonzalez", 1500.0, 0.05);
         Usuario usuarioAlyson = new Usuario("user01", "Alyson Cortes", "alyson@gmail.com", "12345", cuentaAlyson);
         Tarjeta tarjetaAlyson = new Tarjeta("4152313389012345", "12/28", "789", "1234", true);
 
@@ -21,11 +21,12 @@ public class Main {
         boolean salir = false;
         while (!salir) {
             System.out.println("\n--- MENU PRINCIPAL ---");
-            System.out.println("1. Ver perfil y saldo (Alyson)");
+            System.out.println("1. Ver perfil y cuentas");
             System.out.println("2. Transferir a Yoltzin");
             System.out.println("3. Simular cobro con tarjeta");
             System.out.println("4. Ver historial de transferencias");
-            System.out.println("5. Salir");
+            System.out.println("5. Aplicar beneficios de las cuentas");
+            System.out.println("6. Salir");
             System.out.print("Seleccione una opcion: ");
             
             try {
@@ -35,7 +36,11 @@ public class Main {
                 switch (opcion) {
                     case 1:
                         usuarioAlyson.mostrarPerfil();
-                        cuentaAlyson.consultarSaldo();
+                        System.out.println("\n--- CUENTA DE ALYSON ---");
+                        cuentaAlyson.mostrarInformacion();
+
+                        System.out.println("\n--- CUENTA DE YOLTZIN ---");
+                        cuentaYoltzin.mostrarInformacion();
                         break;
                         
                     case 2:
@@ -58,6 +63,18 @@ public class Main {
                         break;
                         
                     case 5:
+                        System.out.println("\n===Beneficios bancarios ===");
+                        CuentaBase[] cuentas = {cuentaAlyson, cuentaYoltzin};
+
+                        for(CuentaBase cuenta : cuentas){
+                            System.out.println("\n-------------------------");
+                            cuenta.mostrarInformacion();
+                            cuenta.aplicarBeneficio();
+                        }
+
+                        break;
+                        
+                    case 6:
                         salir = true;
                         System.out.println("Gracias por usar OPUS PROVENTUS. ¡Hasta luego!");
                         break;

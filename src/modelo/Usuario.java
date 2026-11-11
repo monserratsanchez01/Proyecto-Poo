@@ -5,10 +5,10 @@ public class Usuario {
     private String nombre;
     private String correo;
     private String contrasena;
-    private Cuenta cuenta;
+    private CuentaBase cuenta;
 
     // Constructor
-    public Usuario(String idUsuario, String nombre, String correo, String contrasena, Cuenta cuenta) {
+    public Usuario(String idUsuario, String nombre, String correo, String contrasena, CuentaBase cuenta) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.correo = correo;
@@ -70,11 +70,11 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public Cuenta getCuenta() {
+    public CuentaBase getCuenta() {
         return cuenta;
     }
 
-    public void setCuenta(Cuenta cuenta) {
+    public void setCuenta(CuentaBase cuenta) {
         this.cuenta = cuenta;
     }
 }

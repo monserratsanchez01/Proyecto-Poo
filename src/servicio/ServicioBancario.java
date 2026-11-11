@@ -2,7 +2,7 @@ package servicio;
 
 import java.util.ArrayList;
 import java.util.List;
-import modelo.Cuenta;
+import modelo.CuentaBase;
 import modelo.Transaccion;
 import excepciones.SaldoInsuficienteException;
 
@@ -16,7 +16,7 @@ public class ServicioBancario {
         siguienteId = 1;
     }
 
-    public void transferir(Cuenta origen, Cuenta destino, double monto)
+    public void transferir(CuentaBase origen, CuentaBase destino, double monto)
             throws IllegalArgumentException, SaldoInsuficienteException {
         
         if (origen == null || destino == null) {
