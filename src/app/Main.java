@@ -103,14 +103,6 @@ public class Main {
                             c.aplicarBeneficio();
                         }
                         break;
-
-                        for(CuentaBase cuenta : cuentas){
-                            System.out.println("\n-------------------------");
-                            cuenta.mostrarInformacion();
-                            cuenta.aplicarBeneficio();
-                        }
-
-                        break;
                         
                     case 6:
                         banco.mostrarHistorial();
