@@ -68,6 +68,17 @@ public class ServicioBancario {
     public List<Transaccion> getHistorial() {
         return new ArrayList<>(historial);
     }
+    
+    public void registrarPagoTarjeta(Tarjeta tarjeta, CuentaBase cuenta, double monto, String nipIngresado) 
+            throws SaldoInsuficienteException {
+        // Ejecuta el cobro real y validaciones
+        tarjeta.pagar(monto, cuenta, nipIngresado);
+
+        // Guarda el movimiento en el historial general
+        Transaccion pago = new Transaccion(siguienteId, "Pago con Tarjeta", monto, cuenta, null);
+        historial.add(pago);
+        siguienteId++;
+
+        System.out.println(pago.generarComprobante());
+    }
 }
-
-
