@@ -1,5 +1,7 @@
 package modelo;
 
+import excepciones.SaldoInsuficienteException;
+
 public class Tarjeta {
     // Atributos
     private String numeroTarjeta;
@@ -14,7 +16,7 @@ public class Tarjeta {
         this.cvv = cvv;
         this.nip = nip;
         this.fechaExpiracion = fechaExpiracion;
-        this.activa = true;
+        this.activa = activa;
     }
 
     // Getters
@@ -34,24 +36,29 @@ public class Tarjeta {
         return nip;
     }
 
+    public boolean isActiva(){
+        return activa;
+    }
+
     // Metodos
-    public boolean pagar(double monto) {
-        // 1. Validar que la tarjeta no esté bloqueada
+    public void pagar(double monto, CuentaBase cuenta, String nipIngresado)
+            throws SaldoInsuficienteException {
         if (!this.activa) {
-            System.out.println("Error: No se puede pagar. La tarjeta se encuentra BLOQUEADA.");
-            return false;
+            throw new IllegalArgumentException("No se puede pagar. La tarjeta se encuentra BLOQUEADA.");
         }
-
-        // 2. Validar que el monto sea positivo
+        if (cuenta == null) {
+            throw new IllegalArgumentException("La tarjeta no tiene una cuenta vinculada.");
+        }
+        if (!this.nip.equals(nipIngresado)) {
+            throw new IllegalArgumentException("NIP incorrecto. Operación rechazada.");
+        }
         if (monto <= 0) {
-            System.out.println("Error: El monto a pagar debe ser mayor a 0.");
-            return false;
+            throw new IllegalArgumentException("El monto a pagar debe ser mayor a 0.");
         }
-
-        // Cobro exitoso
-        System.out.println("Pago de $" + monto + " procesado exitosamente con la tarjeta **** " 
-                            + numeroTarjeta.substring(numeroTarjeta.length() - 4));
-        return true;
+        // Descuenta el dinero real
+        cuenta.retirar(monto);
+        System.out.println("Pago de $" + monto + " procesado exitosamente con la tarjeta **** "
+                + numeroTarjeta.substring(numeroTarjeta.length() - 4));
     }
 
     public void bloquear() {
@@ -74,23 +81,18 @@ public class Tarjeta {
     }
 
 
-    public boolean cambiarNIP(String nipActual, String nuevoNip) {
+    public void cambiarNIP(String nipActual, String nuevoNip) {
         // 1. Validar que el NIP actual coincida
         if (!this.nip.equals(nipActual)) {
-            System.out.println("Error: El NIP actual es incorrecto.");
-            return false;
+            throw new IllegalArgumentException("El NIP actual es incorrecto.");
         }
-
         // 2. Validar el formato del nuevo NIP
         if (nuevoNip == null || nuevoNip.length() != 4) {
-            System.out.println("Error: El nuevo NIP debe tener exactamente 4 números.");
-            return false;
+            throw new IllegalArgumentException("El nuevo NIP debe tener exactamente 4 dígitos.");
         }
-
         // 3. Aplicar el cambio
         this.nip = nuevoNip;
         System.out.println("NIP actualizado con éxito.");
-        return true;
     }
 
 }
