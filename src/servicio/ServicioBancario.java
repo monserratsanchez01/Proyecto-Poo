@@ -3,6 +3,7 @@ package servicio;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.CuentaBase;
+import modelo.Tarjeta;
 import modelo.Transaccion;
 import excepciones.SaldoInsuficienteException;
 
