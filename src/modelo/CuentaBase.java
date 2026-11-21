@@ -11,7 +11,7 @@ public class CuentaBase{
         if(titular == null || titular.trim().isEmpty()){
             throw new IllegalArgumentException("El titular es obligatorio");
         }
-        if(saldo < 0){
+        if(saldo <= 0){
             throw new IllegalArgumentException("El saldo no puede ser negativo");
         }
         this.numCuenta = numCuenta;
@@ -36,7 +36,7 @@ public class CuentaBase{
     }
 
     public void mostrarInformacion(){
-        System.out.println("Cuenta: $" + numCuenta);
+        System.out.println("Cuenta: #" + numCuenta);
         System.out.println("Titular: " + titular);
         System.out.println("Saldo: $" + saldo);
     }
