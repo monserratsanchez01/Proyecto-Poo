@@ -37,7 +37,7 @@ public class Main {
         
         boolean salir = false;
         while (!salir) {
-            System.out.println("\n--- MENÚ PRINCIPAL ---");
+            System.out.println("\n--- MENU PRINCIPAL ---");
             System.out.println("1. Consultar perfil y saldos");
             System.out.println("2. Transferir dinero (Alyson -> Yoltzin)");
             System.out.println("3. Pagar con tarjeta de débito");
@@ -45,7 +45,7 @@ public class Main {
             System.out.println("5. Aplicar beneficios mensuales (Demostración Polimorfismo)");
             System.out.println("6. Ver historial de movimientos");
             System.out.println("7. Salir");
-            System.out.print("Seleccione una opción: ");
+            System.out.print("Seleccione una opcion: ");
             
             try {
                 // Capturamos como String y convertimos a int
@@ -71,14 +71,14 @@ public class Main {
                         // Funcionalidad 3: Pago real con tarjeta
                         System.out.print("Ingrese el monto a pagar: ");
                         double montoPago = Double.parseDouble(scanner.nextLine());
-                        System.out.print("Ingrese su NIP (4 dígitos): ");
+                        System.out.print("Ingrese su NIP (4 digitos): ");
                         String nip = scanner.nextLine();
                         banco.registrarPagoTarjeta(tarjetaAlyson, cuentaAlyson, montoPago, nip);
                         break;
                         
                     case 4:
                         System.out.println("1. Bloquear tarjeta | 2. Desbloquear tarjeta | 3. Cambiar NIP");
-                        System.out.print("Elija acción: ");
+                        System.out.print("Elija accion: ");
                         int subOpcion = Integer.parseInt(scanner.nextLine());
                         if (subOpcion == 1) {
                             tarjetaAlyson.bloquear();
@@ -87,11 +87,11 @@ public class Main {
                         } else if (subOpcion == 3) {
                             System.out.print("NIP actual: ");
                             String nipActual = scanner.nextLine();
-                            System.out.print("Nuevo NIP (4 dígitos): ");
+                            System.out.print("Nuevo NIP (4 digitos): ");
                             String nuevoNip = scanner.nextLine();
                             tarjetaAlyson.cambiarNIP(nipActual, nuevoNip);
                         } else {
-                            System.out.println("Subopción no válida.");
+                            System.out.println("Subopcion no valida.");
                         }
                         break;
                         
@@ -110,11 +110,11 @@ public class Main {
                         
                     case 7:
                         salir = true;
-                        System.out.println("Sesión cerrada. ¡Hasta luego!");
+                        System.out.println("Sesion cerrada. ¡Hasta luego!");
                         break;    
                     
                     default:
-                        System.out.println("Opción no valida. Ingrese un número del 1 al 7.");
+                        System.out.println("Opcion no valida. Ingrese un numero del 1 al 7.");
                 }
                 
             } catch (NumberFormatException e) {
