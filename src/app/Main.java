@@ -26,12 +26,12 @@ public class Main {
         // Funcionalidad 1: Autenticación inicial antes de operar
         boolean autenticado = false;
         while (!autenticado) {
-            System.out.print("Ingrese su contraseña para iniciar sesión (hint: 12345): ");
+            System.out.print("Ingrese su usuario para iniciar sesion (hint: 12345): ");
             String pass = scanner.nextLine();
             if (usuarioAlyson.iniciarSesion(pass)) {
                 autenticado = true;
             } else {
-                System.out.println("Contraseña incorrecta. Intente de nuevo.\n");
+                System.out.println("Usuario incorrecto. Intente de nuevo.\n");
             }
         }
         
@@ -40,9 +40,9 @@ public class Main {
             System.out.println("\n--- MENU PRINCIPAL ---");
             System.out.println("1. Consultar perfil y saldos");
             System.out.println("2. Transferir dinero (Alyson -> Yoltzin)");
-            System.out.println("3. Pagar con tarjeta de débito");
+            System.out.println("3. Pagar con tarjeta de debito");
             System.out.println("4. Gestionar tarjeta (Bloquear / Desbloquear / Cambiar NIP)");
-            System.out.println("5. Aplicar beneficios mensuales (Demostración Polimorfismo)");
+            System.out.println("5. Aplicar beneficios mensuales (Demostracion Polimorfismo)");
             System.out.println("6. Ver historial de movimientos");
             System.out.println("7. Salir");
             System.out.print("Seleccione una opcion: ");
