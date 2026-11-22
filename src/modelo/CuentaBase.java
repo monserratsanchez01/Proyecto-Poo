@@ -18,12 +18,6 @@ public class CuentaBase{
         this.titular = titular;
         this.saldo = saldo;
     }
-    public void depositar(double dinero){
-        if (dinero < 0){
-            throw new IllegalArgumentException("El monto debe ser mayor a 0");
-        }
-        this.saldo += dinero;
-    }
 
     public void retirar(double dinero) throws SaldoInsuficienteException{
         if(dinero <= 0){
