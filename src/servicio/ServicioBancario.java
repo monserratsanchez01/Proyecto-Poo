@@ -42,6 +42,7 @@ public class ServicioBancario {
         // Modificación de datos solo si las validaciones pasaron
 
         origen.retirar(monto); 
+        destino.depositar(monto);
      
 
         // Registro de la transacción

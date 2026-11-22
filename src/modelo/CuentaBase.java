@@ -29,6 +29,13 @@ public class CuentaBase{
         this.saldo -= dinero;
     }
 
+    public void depositar(double dinero){
+        if (dinero < 0){
+            throw new IllegalArgumentException("El monto debe ser mayor a 0");
+        }
+        this.saldo += dinero;
+    }
+
     public void mostrarInformacion(){
         System.out.println("Cuenta: #" + numCuenta);
         System.out.println("Titular: " + titular);
